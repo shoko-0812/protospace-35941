@@ -1,0 +1,20 @@
+<%# <%= "kokodayo"   %> 
+<div class="card">
+<%# <%= "こんにちは、" %> 
+  <%# <%= link_to image_tag(prototype.image, class: :card__img ), rails_service_blob_path%> 
+  <%# <%= link_to prototype_path do %> 
+    <%# <%= link_to image_tag(prototype.image, class: :card__img), prototype_path(prototype.id)%>
+    <%= link_to image_tag(prototype.image, class: :card__img), prototype_path(prototype.id)%>
+  <%# <% end %> 
+  <div class="card__body">
+    <%= link_to prototype.title, prototype_path(prototype.id), class: :card__title%>
+    <p class="card__summary">
+      <%= prototype.catch_copy %>
+    </p>
+     <%= link_to "by "+prototype.user.name, prototype_path(prototype.id), class: :card__user %>
+     <%# <%= link_to "by "+@nickname, prototype_path(prototype.id), class: :card__user %> 
+
+    
+  </div>
+  <%# <%= image_tag prototype.image, class: 'prototype-image' %>
+</div>

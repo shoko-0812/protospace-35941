@@ -1,0 +1,91 @@
+<main class="main">
+  <div class="inner">
+    <div class="prototype__wrapper">
+      <p class="prototype__hedding">
+        <%= @prototype.title %>
+      </p>
+      
+      <% if user_signed_in? && current_user.id == @prototype.user_id %> <%# 投稿者とログイン者が一致しているとき %>
+         <%# そのまま名前表示 %>
+         <%= link_to "by " + current_user.name, user_path(@prototype.user_id), class: :prototype__user %>
+      <%else%> <%# 投稿者とログイン者が一致していないとき %>
+          <%# 投稿者の名前を表示 %>
+         <%= link_to "by " + @prototype.user.name, user_path(@prototype.user_id), class: :prototype__user %>
+      <% end %>
+
+      <%# <%= link_to "by " + current_user.name, root_path, class: :prototype__user %> 
+      
+      <%# プロトタイプの投稿者とログインしているユーザーが同じであれば以下を表示する %>
+        <div class="prototype__manage">
+          <% if user_signed_in? && current_user.id == @prototype.user_id %>
+            <%= link_to "編集する", edit_prototype_path(@prototype.id), class: :prototype__btn %>
+            <%= link_to "削除する", prototype_path(@prototype.id), method: :delete, class: :prototype__btn %>
+          <% end %>
+        </div>
+      <%# // プロトタイプの投稿者とログインしているユーザーが同じであれば上記を表示する %>
+      <div class="prototype__image">
+        <%= image_tag (@prototype.image) %>
+      </div>
+      <div class="prototype__body">
+        <div class="prototype__detail">
+          <p class="detail__title">キャッチコピー</p>
+          <p class="detail__message">
+            <%= @prototype.catch_copy %>
+          </p>
+        </div>
+        <div class="prototype__detail">
+          <p class="detail__title">コンセプト</p>
+          <p class="detail__message">
+            <%= @prototype.concept %>
+          </p>
+        </div>
+      </div>
+      <div class="prototype__comments">
+        <%# ログインしているユーザーには以下のコメント投稿フォームを表示する %>
+        <% if user_signed_in? %>
+          <%= form_with model: [@prototype, @comment], local: true do |f| %>
+            <div class="field">
+              <%= f.label :text, "コメント" %><br />
+              <%= f.text_field :text, id:"comment_text" %>
+            </div>
+            <div class="actions">
+              <%= f.submit "送信する", class: :form__btn %>
+            </div>
+          <% end %> 
+        <% end %>   
+        <%# // ログインしているユーザーには上記を表示する %>
+        <%# <div class="comments_list"> %>
+        
+        
+          <%# 投稿に紐づくコメントを一覧する処理を記述する %>
+          <% @comments.each do |comment| %>
+            <ul class="comments_list">   
+            
+            
+             
+              
+                <%# kakunin %>
+                <li>
+                  <li class="comments_list"> 
+                  <%= comment.text%> 
+                  
+                  <%# <class="comment_user">  %>
+                  <%= link_to "（"+comment.user.name+"）", user_path(comment.user_id), class: :comment_user %>
+                  <%# "/users/#{comment.user_id}" %>
+                  
+                  <%# <%= " コメントのテキスト "%>
+                  <%# <%= link_to "（ ユーザー名 ）", root_path, class: :comment_user %>
+                </li>
+              
+              
+              </ul>
+            
+          <% end %>
+        
+
+          <%# // 投稿に紐づくコメントを一覧する処理を記述する %>
+        
+      </div>
+    </div>
+  </div>
+</main>
