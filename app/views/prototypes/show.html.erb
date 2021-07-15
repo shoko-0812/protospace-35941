@@ -6,7 +6,7 @@
       </p>
       
       <% if user_signed_in? && current_user.id == @prototype.user_id %> <%# 投稿者とログイン者が一致しているとき %>
-         <%# そのまま名前表示 %>
+         <%# そのまま名前表示 %>  
          <%= link_to "by " + current_user.name, user_path(@prototype.user_id), class: :prototype__user %>
       <%else%> <%# 投稿者とログイン者が一致していないとき %>
           <%# 投稿者の名前を表示 %>
