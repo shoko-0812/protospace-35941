@@ -34,7 +34,8 @@ class PrototypesController < ApplicationController
 
   def edit
     @prototype = Prototype.find(params[:id])
-    redirect_to prototype_path 
+    # redirect_to prototype_path 
+    
     # @prototype = Prototype.edit(prototype_params)
   
     # if @prototype.save
